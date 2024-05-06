@@ -1,4 +1,4 @@
-FROM 101314775920.dkr.ecr.ap-northeast-2.amazonaws.com/java:corretto-17.0.8
+FROM yologger1013/java:corretto-17.0.8
 
 COPY build/libs/* application.jar
 
