@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.security:spring-security-crypto")
 
     // MySQL Driver
     runtimeOnly("com.mysql:mysql-connector-j")

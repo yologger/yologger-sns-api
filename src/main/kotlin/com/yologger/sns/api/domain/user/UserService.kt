@@ -5,11 +5,13 @@ import com.yologger.sns.api.domain.user.dto.JoinResponse
 import com.yologger.sns.api.domain.user.exception.UserAlreadyExistException
 import com.yologger.sns.api.entity.User
 import com.yologger.sns.api.repository.user.UserRepository
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
 ) {
     @Throws(UserAlreadyExistException::class)
     fun join(request: JoinRequest): JoinResponse {
@@ -19,7 +21,7 @@ class UserService(
                 email = request.email,
                 name = request.name,
                 nickname = request.nickname,
-                password = request.password
+                password = passwordEncoder.encode(request.password)
             )
         )
         return JoinResponse(uid = saved.id)
