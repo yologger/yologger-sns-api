@@ -1,5 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
+object DependencyVersions {
+    const val TEST_CONTAINERS_VERSION = "1.19.5"
+}
+
 plugins {
     id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
@@ -28,12 +33,22 @@ dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // MySQL Driver
     runtimeOnly("com.mysql:mysql-connector-j")
 
+    // Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation(platform("org.testcontainers:testcontainers-bom:${DependencyVersions.TEST_CONTAINERS_VERSION}"))
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:mysql")
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
 }
 
 tasks.withType<KotlinCompile> {

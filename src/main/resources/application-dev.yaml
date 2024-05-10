@@ -1,0 +1,20 @@
+server:
+  port: 5001
+
+datasource: &dev-datasource
+  url: jdbc:mysql://localhost:3306/yologger_sns?useUnicode=true&charset=utf8mb4&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul&rewriteBatchedStatements=true
+  username: yologger_sns
+  password: Yologger1234@@
+  hikari:
+    minimum-idle: 1
+    maximum-pool-size: 5
+    pool-name: hikaricp.localhost.test
+    max-lifetime: 900000
+
+core:
+  master.datasource: *dev-datasource
+  slave.datasource: *dev-datasource
+  jpa:
+    properties:
+      hibernate.hbm2ddl.auto: none
+      hibernate.show_sql: true
