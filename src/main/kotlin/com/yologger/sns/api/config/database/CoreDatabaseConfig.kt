@@ -85,7 +85,7 @@ class CoreDatabaseConfig {
     ): LocalContainerEntityManagerFactoryBean {
         return builder
             .dataSource(coreRoutingDataSource)
-            .packages("com.bunjang.test.api.v1.entity")
+            .packages("com.yologger.sns.api.entity")
             .build()
     }
 

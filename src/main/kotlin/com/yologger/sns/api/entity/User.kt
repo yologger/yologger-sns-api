@@ -1,4 +1,4 @@
-package com.yologger.sns.api.repository.user
+package com.yologger.sns.api.entity
 
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
@@ -8,15 +8,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @Entity
-@Table(name= "users")
 @EntityListeners(AuditingEntityListener::class)
+@Table(name= "`user`")
 class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int unsigned")
     val id: Long = 0,
 
-    @Column(name = "email", columnDefinition = "varchar(200) charset utf8mb4")
+    @Column(name = "email", columnDefinition = "varchar(200) unique charset utf8mb4")
     var email: String,
 
     @Column(name = "name", columnDefinition = "varchar(200) charset utf8mb4")
