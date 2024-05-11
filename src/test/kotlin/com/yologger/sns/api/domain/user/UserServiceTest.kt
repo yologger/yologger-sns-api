@@ -13,11 +13,14 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 class UserServiceTest {
     private val userRepository: UserRepository = mock()
-    private val service = UserService(userRepository = userRepository)
+    private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
+    private val service = UserService(userRepository = userRepository, passwordEncoder = passwordEncoder)
 
     @Nested
     @DisplayName("회원가입")

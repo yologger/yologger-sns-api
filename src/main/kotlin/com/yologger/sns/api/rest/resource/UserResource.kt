@@ -22,11 +22,6 @@ class UserResource(
     @PostMapping("/join", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun join(@Validated @RequestBody request: JoinRequest) = userService.join(request).wrapCreated()
 
-    @ExceptionHandler(value = [UserAlreadyExistException::class])
-    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
-        return JoinFailureResponse(message = "User already exists").wrapConflict()
-    }
-
     @DeleteMapping("/withdraw", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun withdraw() {
 
