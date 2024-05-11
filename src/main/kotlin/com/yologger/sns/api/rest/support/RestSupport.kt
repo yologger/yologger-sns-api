@@ -22,6 +22,11 @@ fun <T> T.wrapConflict() = ResponseEntity.status(HttpStatus.CONFLICT).body(Respo
 /** Wrap Response Created */
 fun <T> T.wrapCreated() = ResponseEntity.status(HttpStatus.CREATED).body(Response(this))
 
+/** Wrap Bad Request */
+fun <T> T.wrapBadRequest() = ResponseEntity.badRequest().body(Response(this))
+
+fun <T> T.wrapInternalServerError() = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Response(this))
+
 /** Wrap Response Void */
 fun Unit.wrapVoid() = ResponseEntity.noContent()
 
