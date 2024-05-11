@@ -40,17 +40,17 @@ class PostResource(
     }
 
     @ExceptionHandler(value = [UserNotExistException::class])
-    fun handle(e: UserNotExistException): ResponseEntity<Response<CreatePostFailureResponse>> {
-        return CreatePostFailureResponse(message = e.message!!).wrapBadRequest()
+    fun handle(e: UserNotExistException): ResponseEntity<Response<PostFailureResponse>> {
+        return PostFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
     @ExceptionHandler(value = [PostNotExistException::class])
-    fun handle(e: PostNotExistException): ResponseEntity<Response<PostErrorResponse>> {
-        return PostErrorResponse(message = e.message!!).wrapBadRequest()
+    fun handle(e: PostNotExistException): ResponseEntity<Response<PostFailureResponse>> {
+        return PostFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
     @ExceptionHandler(value = [WrongPostWriterException::class])
-    fun handle(e: WrongPostWriterException): ResponseEntity<Response<PostErrorResponse>> {
-        return PostErrorResponse(message = e.message!!).wrapBadRequest()
+    fun handle(e: WrongPostWriterException): ResponseEntity<Response<PostFailureResponse>> {
+        return PostFailureResponse(message = e.message!!).wrapBadRequest()
     }
 }

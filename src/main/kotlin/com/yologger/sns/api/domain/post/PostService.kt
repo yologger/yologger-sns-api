@@ -2,7 +2,7 @@ package com.yologger.sns.api.domain.post
 
 import com.yologger.sns.api.domain.auth.exception.UserNotExistException
 import com.yologger.sns.api.domain.post.dto.DeletePostResponse
-import com.yologger.sns.api.domain.post.dto.PostDTO
+import com.yologger.sns.api.domain.post.dto.PostData
 import com.yologger.sns.api.domain.post.exception.PostNotExistException
 import com.yologger.sns.api.domain.post.exception.WrongPostWriterException
 import com.yologger.sns.api.entity.Post
@@ -19,23 +19,23 @@ class PostService(
 ) {
     @Transactional
     @Throws(UserNotExistException::class)
-    fun createPost(uid: Long, title: String, body: String): PostDTO {
+    fun createPost(uid: Long, title: String, body: String): PostData {
         if (!userRepository.existsById(uid)) throw UserNotExistException("User not exists.")
         val saved = postRepository.save(Post(
             uid = uid,
             title = title,
             body = body
         ))
-        return PostDTO.fromEntity(post = saved)
+        return PostData.fromEntity(post = saved)
     }
 
     @Transactional
     @Throws(UserNotExistException::class, PostNotExistException::class, WrongPostWriterException::class)
-    fun editPost(uid: Long, pid: Long, newTitle: String, newBody: String): PostDTO {
+    fun editPost(uid: Long, pid: Long, newTitle: String, newBody: String): PostData {
         val post = validatePost(pid, uid)
         post.get().title = newTitle
         post.get().body = newBody
-        return PostDTO.fromEntity(post.get())
+        return PostData.fromEntity(post.get())
     }
 
     @Transactional
