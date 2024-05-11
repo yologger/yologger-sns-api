@@ -4,6 +4,7 @@ import com.yologger.sns.api.domain.auth.dto.AccessTokenClaim
 import com.yologger.sns.api.domain.auth.dto.LoginResponse
 import com.yologger.sns.api.domain.auth.exception.UserNotExistException
 import com.yologger.sns.api.domain.auth.exception.WrongPasswordException
+import com.yologger.sns.api.domain.user.exception.UserAlreadyExistException
 import com.yologger.sns.api.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -16,6 +17,7 @@ class AuthService(
     private val passwordEncoder: PasswordEncoder
 ) {
     @Transactional
+    @Throws(UserNotExistException::class, WrongPasswordException::class)
     fun login(email: String, password: String) : LoginResponse {
         val user = userRepository.findByEmail(email)
 
