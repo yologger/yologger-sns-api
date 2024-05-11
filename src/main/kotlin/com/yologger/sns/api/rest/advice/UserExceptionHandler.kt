@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@RestControllerAdvice(basePackageClasses = [UserResource::class])
-class UserExceptionHandler {
-
-    @ExceptionHandler(value = [UserAlreadyExistException::class])
-    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
-        return JoinFailureResponse(message = "User already exists").wrapConflict()
-    }
-}
+//@RestControllerAdvice(basePackageClasses = [UserResource::class])
+//class UserExceptionHandler {
+//
+//    @ExceptionHandler(value = [UserAlreadyExistException::class])
+//    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
+//        return JoinFailureResponse(message = "User already exists").wrapConflict()
+//    }
+//}

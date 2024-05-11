@@ -2,6 +2,8 @@ package com.yologger.sns.api.domain.post
 
 import com.yologger.sns.api.domain.auth.exception.UserNotExistException
 import com.yologger.sns.api.domain.post.dto.PostDTO
+import com.yologger.sns.api.domain.post.exception.PostNotExistException
+import com.yologger.sns.api.domain.post.exception.WrongPostWriterException
 import com.yologger.sns.api.domain.user.exception.UserAlreadyExistException
 import com.yologger.sns.api.entity.Post
 import com.yologger.sns.api.repository.PostRepository
@@ -27,8 +29,15 @@ class PostService(
     }
 
     @Transactional
-    fun editPost(pid: Long, newTitle: String, newBody: String) {
-
+    @Throws(UserNotExistException::class, PostNotExistException::class, WrongPostWriterException::class)
+    fun editPost(uid: Long, pid: Long, newTitle: String, newBody: String): PostDTO {
+        if (!userRepository.existsById(uid)) throw UserNotExistException("User not exists.")
+        val post = postRepository.findById(pid)
+        if (post.isEmpty) throw PostNotExistException("Post not exists")
+        if (post.get().uid != uid) throw WrongPostWriterException("Wrong post writer")
+        post.get().title = newTitle
+        post.get().body = newBody
+        return PostDTO.fromEntity(post.get())
     }
 
     @Transactional

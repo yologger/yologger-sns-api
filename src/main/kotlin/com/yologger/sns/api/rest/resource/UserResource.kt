@@ -31,4 +31,9 @@ class UserResource(
     fun getUser(@PathVariable(name = "uid") uid: Long) {
 
     }
+
+    @ExceptionHandler(value = [UserAlreadyExistException::class])
+    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
+        return JoinFailureResponse(message = "User already exists").wrapConflict()
+    }
 }
