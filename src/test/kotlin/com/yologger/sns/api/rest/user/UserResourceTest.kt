@@ -21,7 +21,7 @@ class UserResourceTest: AbstractWebMvcTest() {
             "email" to "yologger1013@gmail.com",
             "name" to "yologger",
             "nickname" to "yologger",
-            "password" to "1234"
+            "password" to "1234A2dss@!"
         )
 
         @Test

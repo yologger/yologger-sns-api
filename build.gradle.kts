@@ -38,6 +38,13 @@ dependencies {
     implementation("org.springframework.security:spring-security-crypto")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    // JWT
+    implementation("io.jsonwebtoken:jjwt-api:0.10.7")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.10.7")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.10.7")
+    implementation("com.auth0:jwks-rsa:0.11.0")
+    implementation("com.auth0:java-jwt:3.10.3")
+
     // MySQL Driver
     runtimeOnly("com.mysql:mysql-connector-j")
 
