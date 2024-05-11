@@ -4,7 +4,7 @@ import com.yologger.sns.api.domain.user.dto.JoinRequest
 import com.yologger.sns.api.domain.user.dto.JoinResponse
 import com.yologger.sns.api.domain.user.exception.UserAlreadyExistException
 import com.yologger.sns.api.entity.User
-import com.yologger.sns.api.repository.user.UserRepository
+import com.yologger.sns.api.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 

@@ -4,7 +4,7 @@ import com.yologger.sns.api.domain.auth.dto.AccessTokenClaim
 import com.yologger.sns.api.domain.auth.dto.LoginResponse
 import com.yologger.sns.api.domain.auth.exception.UserNotExistException
 import com.yologger.sns.api.domain.auth.exception.WrongPasswordException
-import com.yologger.sns.api.repository.user.UserRepository
+import com.yologger.sns.api.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

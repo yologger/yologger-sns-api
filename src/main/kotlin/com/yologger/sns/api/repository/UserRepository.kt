@@ -1,4 +1,4 @@
-package com.yologger.sns.api.repository.user
+package com.yologger.sns.api.repository
 
 import com.yologger.sns.api.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
