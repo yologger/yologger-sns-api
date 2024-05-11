@@ -1,4 +1,4 @@
-package com.yologger.sns.api.rest.auth
+package com.yologger.sns.api.rest.resource
 
 import com.yologger.sns.api.config.MEDIA_TYPE_APPLICATION_JSON_UTF8_VALUE
 import com.yologger.sns.api.domain.auth.AUTH_TOKEN_KEY

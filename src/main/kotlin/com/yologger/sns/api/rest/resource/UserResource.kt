@@ -1,4 +1,4 @@
-package com.yologger.sns.api.rest.user
+package com.yologger.sns.api.rest.resource
 
 import com.yologger.sns.api.domain.user.UserService
 import com.yologger.sns.api.domain.user.dto.JoinFailureResponse
