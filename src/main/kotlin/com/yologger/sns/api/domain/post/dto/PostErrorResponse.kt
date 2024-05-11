@@ -1,5 +1,5 @@
 package com.yologger.sns.api.domain.post.dto
 
-data class EditPostFailureResponse(
+data class PostErrorResponse(
     val message: String
 )

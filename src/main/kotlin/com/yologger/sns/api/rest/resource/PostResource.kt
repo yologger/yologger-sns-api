@@ -3,10 +3,7 @@ package com.yologger.sns.api.rest.resource
 import com.yologger.sns.api.config.MEDIA_TYPE_APPLICATION_JSON_UTF8_VALUE
 import com.yologger.sns.api.domain.auth.exception.UserNotExistException
 import com.yologger.sns.api.domain.post.PostService
-import com.yologger.sns.api.domain.post.dto.CreatePostFailureResponse
-import com.yologger.sns.api.domain.post.dto.CreatePostRequest
-import com.yologger.sns.api.domain.post.dto.EditPostFailureResponse
-import com.yologger.sns.api.domain.post.dto.EditPostRequest
+import com.yologger.sns.api.domain.post.dto.*
 import com.yologger.sns.api.domain.post.exception.PostNotExistException
 import com.yologger.sns.api.domain.post.exception.WrongPostWriterException
 import com.yologger.sns.api.rest.support.Response
@@ -30,6 +27,9 @@ class PostResource(
     @PatchMapping("/post")
     fun editPost(@Validated @RequestBody request: EditPostRequest) = postService.editPost(uid = request.uid, pid = request.pid, newTitle = request.title, newBody = request.body).wrapOk()
 
+    @DeleteMapping("/post", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun deletePost(@Validated @RequestBody request: DeletePostRequest) = postService.deletePost(uid = request.uid, pid = request.pid).wrapOk()
+
     @GetMapping("/posts", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun getPosts() {
 
@@ -39,23 +39,18 @@ class PostResource(
     fun getPost(@PathVariable(name = "pid") pid: Long) {
     }
 
-    @DeleteMapping("/post/{pid}", consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun deletePost(@PathVariable(name = "pid") pid: Long) {
-
-    }
-
     @ExceptionHandler(value = [UserNotExistException::class])
     fun handle(e: UserNotExistException): ResponseEntity<Response<CreatePostFailureResponse>> {
         return CreatePostFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
     @ExceptionHandler(value = [PostNotExistException::class])
-    fun handle(e: PostNotExistException): ResponseEntity<Response<EditPostFailureResponse>> {
-        return EditPostFailureResponse(message = e.message!!).wrapBadRequest()
+    fun handle(e: PostNotExistException): ResponseEntity<Response<PostErrorResponse>> {
+        return PostErrorResponse(message = e.message!!).wrapBadRequest()
     }
 
     @ExceptionHandler(value = [WrongPostWriterException::class])
-    fun handle(e: WrongPostWriterException): ResponseEntity<Response<EditPostFailureResponse>> {
-        return EditPostFailureResponse(message = e.message!!).wrapBadRequest()
+    fun handle(e: WrongPostWriterException): ResponseEntity<Response<PostErrorResponse>> {
+        return PostErrorResponse(message = e.message!!).wrapBadRequest()
     }
 }
