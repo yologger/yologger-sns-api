@@ -1,7 +1,7 @@
 package com.yologger.sns.api.rest
 
 import com.yologger.sns.api.domain.user.UserService
-import com.yologger.sns.api.rest.user.UserResource
+import com.yologger.sns.api.rest.resource.UserResource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest

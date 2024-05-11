@@ -1,4 +1,4 @@
-package com.yologger.sns.api.rest.user
+package com.yologger.sns.api.rest.resource
 
 import com.yologger.sns.api.domain.user.UserService
 import com.yologger.sns.api.domain.user.dto.JoinFailureResponse
@@ -11,6 +11,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import com.yologger.sns.api.config.MEDIA_TYPE_APPLICATION_JSON_UTF8_VALUE
+import org.springframework.validation.annotation.Validated
 
 @RestController
 @RequestMapping("/api/user/v1", produces = [MEDIA_TYPE_APPLICATION_JSON_UTF8_VALUE])
@@ -19,7 +20,7 @@ class UserResource(
 ) {
 
     @PostMapping("/join", consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun join(@RequestBody request: JoinRequest) = userService.join(request).wrapCreated()
+    fun join(@Validated @RequestBody request: JoinRequest) = userService.join(request).wrapCreated()
 
     @ExceptionHandler(value = [UserAlreadyExistException::class])
     fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
