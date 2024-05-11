@@ -7,12 +7,14 @@ import com.yologger.sns.api.entity.User
 import com.yologger.sns.api.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
+    @Transactional
     @Throws(UserAlreadyExistException::class)
     fun join(request: JoinRequest): JoinResponse {
         if (userRepository.findByEmail(request.email).isPresent) throw UserAlreadyExistException("User already exists.")
