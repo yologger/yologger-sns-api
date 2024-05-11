@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class AuthExceptionHandler {
 
     @ExceptionHandler(value = [UserNotExistException::class])
-    fun handleUserNotExistException(e: UserNotExistException): ResponseEntity<Response<LoginFailureResponse>> {
+    fun handle(e: UserNotExistException): ResponseEntity<Response<LoginFailureResponse>> {
         return LoginFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
     @ExceptionHandler(value = [WrongPasswordException::class])
-    fun handleWrongPasswordException(e: WrongPasswordException): ResponseEntity<Response<LoginFailureResponse>> {
+    fun handle(e: WrongPasswordException): ResponseEntity<Response<LoginFailureResponse>> {
         return LoginFailureResponse(message = e.message!!).wrapBadRequest()
     }
 }
