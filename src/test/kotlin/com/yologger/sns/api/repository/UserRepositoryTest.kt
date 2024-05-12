@@ -19,14 +19,9 @@ import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 
 // @Disabled
-@DataJpaTest(showSql = true)
-@Testcontainers
-@ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // Disable H2 on DataJpaTest
-@Import(TestMySQLContainer::class, DataSourceConfig::class, PersistentConfig::class, QueryDslConfig::class)
 class UserRepositoryTest(
     @Autowired private val userRepository: UserRepository
-) {
+): AbstractDataJpaTest() {
     @Test
     @DisplayName("User 단건 추가")
     fun addUser() {
@@ -34,11 +29,11 @@ class UserRepositoryTest(
 
         userRepository.save(
             User(
-            email = email,
-            name = "yologger1013",
-            nickname = "yologger",
-            password = "12341234"
-        )
+                email = email,
+                name = "yologger1013",
+                nickname = "yologger",
+                password = "12341234"
+            )
         )
 
         val user = userRepository.findByEmail(email)

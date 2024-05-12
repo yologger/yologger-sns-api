@@ -19,14 +19,9 @@ import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 
 // @Disabled
-@DataJpaTest(showSql = true)
-@Testcontainers
-@ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // Disable H2 on DataJpaTest
-@Import(TestMySQLContainer::class, DataSourceConfig::class, PersistentConfig::class, QueryDslConfig::class)
 class PostRepositoryTest(
     @Autowired private val postRepository: PostRepository
-) {
+): AbstractDataJpaTest() {
     @Test
     @DisplayName("Post 단건 추가")
     fun addPost() {
@@ -39,10 +34,10 @@ class PostRepositoryTest(
         // When
         val saved = postRepository.save(
             Post(
-            uid = uid,
-            title = title,
-            body = body
-        )
+                uid = uid,
+                title = title,
+                body = body
+            )
         )
 
         val post = postRepository.findById(saved.id)
