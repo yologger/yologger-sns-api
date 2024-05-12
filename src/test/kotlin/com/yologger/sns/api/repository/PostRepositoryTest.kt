@@ -14,17 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 
 // @Disabled
+@Sql(scripts = ["/sql/repository/insert_bulk_users.sql", "/sql/repository/insert_bulk_post.sql"])
 class PostRepositoryTest(
     @Autowired private val postRepository: PostRepository
 ): AbstractDataJpaTest() {
     @Test
-    @DisplayName("Post 단건 추가")
-    fun addPost() {
+    fun `Post 단건 추가`() {
 
         // Given
         val uid = 1L
@@ -47,10 +49,20 @@ class PostRepositoryTest(
     }
 
     @Test
-    @Sql(scripts = ["/sql/repository/insert_bulk_users.sql", "/sql/repository/insert_bulk_post.sql"])
-    fun `user의 posts 조회 `() {
+    fun `Uid 기반 posts 조회 `() {
         val size = 5L
         val posts = postRepository.findPostsByUidOrderByCreateDateDesc(uid = 1, page = 0, size = size);
         assertThat(posts.size).isEqualTo(size)
     }
+
+    @Test
+    fun `최근 posts 조회`() {
+        val size = 5
+        val sort = Sort.by("id").descending()
+        val pageable = PageRequest.of(0, size, sort)
+        val posts = postRepository.findAll(pageable)
+        assertThat(posts.size).isEqualTo(size)
+    }
+
+
 }

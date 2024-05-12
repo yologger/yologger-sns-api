@@ -40,9 +40,8 @@ class PmsResource(
     ) = postService.getPostsByUid(uid = uid, page = request.page, size = request.size).wrapOk()
 
     @GetMapping("/posts", consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun getPosts() {
-
-    }
+    fun getPosts(@Validated @RequestBody request: GetPostsRequest)
+    = postService.getPosts(page = request.page, size = request.size)
 
     @ExceptionHandler(value = [UserNotFoundException::class])
     fun handle(e: UserNotFoundException): ResponseEntity<Response<PmsFailureResponse>> {

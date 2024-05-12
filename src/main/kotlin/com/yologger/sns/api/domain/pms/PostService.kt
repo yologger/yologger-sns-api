@@ -3,12 +3,15 @@ package com.yologger.sns.api.domain.pms
 import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.pms.dto.DeletePostResponse
 import com.yologger.sns.api.domain.pms.dto.GetPostsByUidResponse
+import com.yologger.sns.api.domain.pms.dto.GetPostsResponse
 import com.yologger.sns.api.domain.pms.dto.PostData
 import com.yologger.sns.api.domain.pms.exception.PostNotFoundException
 import com.yologger.sns.api.domain.pms.exception.WrongPostWriterException
 import com.yologger.sns.api.infrastructure.entity.Post
 import com.yologger.sns.api.infrastructure.repository.PostRepository
 import com.yologger.sns.api.infrastructure.repository.UserRepository
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -53,8 +56,9 @@ class PostService(
     fun getPost(pid: Long): PostData = PostData.fromEntity(postRepository.findById(pid).orElseThrow { PostNotFoundException("Post not found") }!!)
 
     @Transactional(readOnly = true)
-    fun getPosts() {
-
+    fun getPosts(page: Int, size: Int): GetPostsResponse {
+        val posts = postRepository.findAll(PageRequest.of(page, size, Sort.by("id").descending())).map { PostData.fromEntity(it) }.content
+        return GetPostsResponse(size = posts.size, posts = posts)
     }
 
     @Transactional(readOnly = true)
