@@ -1,10 +1,11 @@
 package com.yologger.sns.api.domain.user
 
 import any
-import com.yologger.sns.api.domain.user.dto.JoinRequest
-import com.yologger.sns.api.domain.user.exception.UserAlreadyExistException
-import com.yologger.sns.api.entity.User
-import com.yologger.sns.api.repository.user.UserRepository
+import com.yologger.sns.api.domain.ums.UserService
+import com.yologger.sns.api.domain.ums.dto.JoinRequest
+import com.yologger.sns.api.domain.ums.exception.DuplicateUserException
+import com.yologger.sns.api.infrastructure.entity.User
+import com.yologger.sns.api.infrastructure.repository.UserRepository
 import mock
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -75,17 +76,19 @@ class UserServiceTest {
             given(
                 userRepository.findByEmail(any())
             ).willReturn(
-                Optional.of(User(
+                Optional.of(
+                    User(
                     email = "yologger1013@gmail.com",
                     name = "yologger",
                     nickname = "yologger",
-                    password = "1234"))
+                    password = "1234")
+                )
             )
 
             // When, Then
             assertThatThrownBy {
                 service.join(request)
-            }.isExactlyInstanceOf(UserAlreadyExistException::class.java)
+            }.isExactlyInstanceOf(DuplicateUserException::class.java)
         }
     }
 }

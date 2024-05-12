@@ -21,7 +21,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = ["com.yologger.sns.api.repository"],
+    basePackages = ["com.yologger.sns.api.infrastructure.repository"],
     entityManagerFactoryRef = "coreEntityManager",
     transactionManagerRef = "coreTransactionManager"
 )
@@ -85,7 +85,7 @@ class CoreDatabaseConfig {
     ): LocalContainerEntityManagerFactoryBean {
         return builder
             .dataSource(coreRoutingDataSource)
-            .packages("com.yologger.sns.api.entity")
+            .packages("com.yologger.sns.api.infrastructure.entity")
             .build()
     }
 
