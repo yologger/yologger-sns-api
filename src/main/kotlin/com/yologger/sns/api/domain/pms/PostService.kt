@@ -2,6 +2,7 @@ package com.yologger.sns.api.domain.pms
 
 import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.pms.dto.DeletePostResponse
+import com.yologger.sns.api.domain.pms.dto.GetPostsByUidResponse
 import com.yologger.sns.api.domain.pms.dto.PostData
 import com.yologger.sns.api.domain.pms.exception.PostNotFoundException
 import com.yologger.sns.api.domain.pms.exception.WrongPostWriterException
@@ -57,8 +58,9 @@ class PostService(
     }
 
     @Transactional(readOnly = true)
-    fun getPostsByUid(uid: String) {
-
+    fun getPostsByUid(uid: Long, page: Long, size: Long): GetPostsByUidResponse {
+        val posts = postRepository.findPostsByUidOrderByCreateDateDesc(uid = uid, page = page, size = size).map { PostData.fromEntity(it) }
+        return GetPostsByUidResponse(size = posts.size, posts = posts)
     }
 
     @Throws(UserNotFoundException::class, PostNotFoundException::class, WrongPostWriterException::class)

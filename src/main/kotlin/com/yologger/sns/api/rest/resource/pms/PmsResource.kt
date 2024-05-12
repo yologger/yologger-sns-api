@@ -33,6 +33,12 @@ class PmsResource(
     @GetMapping("/post/{pid}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun getPost(@PathVariable(name = "pid") pid: Long) = postService.getPost(pid).wrapOk()
 
+    @GetMapping("/user/{uid}/posts", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun getPostsByUid(
+        @PathVariable(name = "uid") uid: Long,
+        @Validated @RequestBody request: GetPostsByUidRequest
+    ) = postService.getPostsByUid(uid = uid, page = request.page, size = request.size).wrapOk()
+
     @GetMapping("/posts", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun getPosts() {
 
