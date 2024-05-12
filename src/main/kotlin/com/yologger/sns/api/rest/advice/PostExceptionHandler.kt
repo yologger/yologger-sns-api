@@ -3,13 +3,13 @@ package com.yologger.sns.api.rest.advice
 //@RestControllerAdvice(basePackageClasses = [PmsResource::class])
 //class PostExceptionHandler {
 //
-//    @ExceptionHandler(value = [UserNotExistException::class])
-//    fun handle(e: UserNotExistException): ResponseEntity<Response<CreatePostFailureResponse>> {
+//    @ExceptionHandler(value = [UserNotFoundException::class])
+//    fun handle(e: UserNotFoundException): ResponseEntity<Response<CreatePostFailureResponse>> {
 //        return CreatePostFailureResponse(message = e.message!!).wrapBadRequest()
 //    }
 //
-//    @ExceptionHandler(value = [PostNotExistException::class])
-//    fun handle(e: PostNotExistException): ResponseEntity<Response<EditPostFailureResponse>> {
+//    @ExceptionHandler(value = [PostNotFoundException::class])
+//    fun handle(e: PostNotFoundException): ResponseEntity<Response<EditPostFailureResponse>> {
 //        return EditPostFailureResponse(message = e.message!!).wrapBadRequest()
 //    }
 //

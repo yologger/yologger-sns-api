@@ -3,7 +3,7 @@ package com.yologger.sns.api.rest.resource.ums
 import com.yologger.sns.api.domain.ums.UserService
 import com.yologger.sns.api.domain.ums.dto.JoinFailureResponse
 import com.yologger.sns.api.domain.ums.dto.JoinRequest
-import com.yologger.sns.api.domain.ums.exception.UserAlreadyExistException
+import com.yologger.sns.api.domain.ums.exception.DuplicateUserException
 import com.yologger.sns.api.rest.support.Response
 import com.yologger.sns.api.rest.support.wrapConflict
 import com.yologger.sns.api.rest.support.wrapCreated
@@ -32,8 +32,8 @@ class UmsResource(
 
     }
 
-    @ExceptionHandler(value = [UserAlreadyExistException::class])
-    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ResponseEntity<Response<JoinFailureResponse>> {
+    @ExceptionHandler(value = [DuplicateUserException::class])
+    fun handleUserAlreadyExistException(e: DuplicateUserException): ResponseEntity<Response<JoinFailureResponse>> {
         return JoinFailureResponse(message = "User already exists").wrapConflict()
     }
 }

@@ -3,7 +3,7 @@ package com.yologger.sns.api.domain.user
 import any
 import com.yologger.sns.api.domain.ums.UserService
 import com.yologger.sns.api.domain.ums.dto.JoinRequest
-import com.yologger.sns.api.domain.ums.exception.UserAlreadyExistException
+import com.yologger.sns.api.domain.ums.exception.DuplicateUserException
 import com.yologger.sns.api.infrastructure.entity.User
 import com.yologger.sns.api.infrastructure.repository.UserRepository
 import mock
@@ -88,7 +88,7 @@ class UserServiceTest {
             // When, Then
             assertThatThrownBy {
                 service.join(request)
-            }.isExactlyInstanceOf(UserAlreadyExistException::class.java)
+            }.isExactlyInstanceOf(DuplicateUserException::class.java)
         }
     }
 }

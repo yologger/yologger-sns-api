@@ -1,7 +1,7 @@
 //package com.yologger.sns.api.rest.advice
 //
 //import com.yologger.sns.api.domain.ums.dto.LoginFailureResponse
-//import com.yologger.sns.api.domain.ums.exception.UserNotExistException
+//import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 //import com.yologger.sns.api.domain.ums.exception.WrongPasswordException
 //import com.yologger.sns.api.rest.resource.ums.UmsAuthResource
 //import com.yologger.sns.api.rest.support.Response
@@ -13,8 +13,8 @@
 //@RestControllerAdvice(basePackageClasses = [UmsAuthResource::class])
 //class AuthExceptionHandler {
 //
-//    @ExceptionHandler(value = [UserNotExistException::class])
-//    fun handle(e: UserNotExistException): ResponseEntity<Response<LoginFailureResponse>> {
+//    @ExceptionHandler(value = [UserNotFoundException::class])
+//    fun handle(e: UserNotFoundException): ResponseEntity<Response<LoginFailureResponse>> {
 //        return LoginFailureResponse(message = e.message!!).wrapBadRequest()
 //    }
 //

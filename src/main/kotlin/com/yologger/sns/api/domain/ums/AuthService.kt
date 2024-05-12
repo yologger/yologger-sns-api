@@ -2,7 +2,7 @@ package com.yologger.sns.api.domain.ums
 
 import com.yologger.sns.api.domain.ums.dto.AccessTokenClaim
 import com.yologger.sns.api.domain.ums.dto.LoginResponse
-import com.yologger.sns.api.domain.ums.exception.UserNotExistException
+import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.ums.exception.WrongPasswordException
 import com.yologger.sns.api.infrastructure.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -16,12 +16,12 @@ class AuthService(
     private val passwordEncoder: PasswordEncoder
 ) {
     @Transactional
-    @Throws(UserNotExistException::class, WrongPasswordException::class)
+    @Throws(UserNotFoundException::class, WrongPasswordException::class)
     fun login(email: String, password: String) : LoginResponse {
         val user = userRepository.findByEmail(email)
 
         /** User doesn't exists */
-        if (user.isEmpty) throw UserNotExistException("User not exists.")
+        if (user.isEmpty) throw UserNotFoundException("User not found")
 
         /** Wrong password */
         if (!passwordEncoder.matches(password, user.get().password)) throw WrongPasswordException("Wrong password.")

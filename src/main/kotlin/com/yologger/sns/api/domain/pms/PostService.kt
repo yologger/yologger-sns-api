@@ -1,9 +1,9 @@
 package com.yologger.sns.api.domain.pms
 
-import com.yologger.sns.api.domain.ums.exception.UserNotExistException
+import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.pms.dto.DeletePostResponse
 import com.yologger.sns.api.domain.pms.dto.PostData
-import com.yologger.sns.api.domain.pms.exception.PostNotExistException
+import com.yologger.sns.api.domain.pms.exception.PostNotFoundException
 import com.yologger.sns.api.domain.pms.exception.WrongPostWriterException
 import com.yologger.sns.api.infrastructure.entity.Post
 import com.yologger.sns.api.infrastructure.repository.PostRepository
@@ -18,9 +18,9 @@ class PostService(
     private val userRepository: UserRepository
 ) {
     @Transactional
-    @Throws(UserNotExistException::class)
+    @Throws(UserNotFoundException::class)
     fun createPost(uid: Long, title: String, body: String): PostData {
-        if (!userRepository.existsById(uid)) throw UserNotExistException("User not exists.")
+        if (!userRepository.existsById(uid)) throw UserNotFoundException("User not found")
         val saved = postRepository.save(
             Post(
             uid = uid,
@@ -32,7 +32,7 @@ class PostService(
     }
 
     @Transactional
-    @Throws(UserNotExistException::class, PostNotExistException::class, WrongPostWriterException::class)
+    @Throws(UserNotFoundException::class, PostNotFoundException::class, WrongPostWriterException::class)
     fun editPost(uid: Long, pid: Long, newTitle: String, newBody: String): PostData {
         val post = validatePost(pid, uid)
         post.get().title = newTitle
@@ -41,7 +41,7 @@ class PostService(
     }
 
     @Transactional
-    @Throws(UserNotExistException::class, PostNotExistException::class, WrongPostWriterException::class)
+    @Throws(UserNotFoundException::class, PostNotFoundException::class, WrongPostWriterException::class)
     fun deletePost(uid: Long, pid: Long): DeletePostResponse {
         validatePost(pid, uid)
         postRepository.deleteById(pid)
@@ -63,10 +63,12 @@ class PostService(
 
     }
 
+
+    @Throws(UserNotFoundException::class, PostNotFoundException::class, WrongPostWriterException::class)
     private fun validatePost(pid: Long, uid: Long): Optional<Post> {
-        if (!userRepository.existsById(uid)) throw UserNotExistException("User not exists.")
+        if (!userRepository.existsById(uid)) throw UserNotFoundException("User not found")
         val post = postRepository.findById(pid)
-        if (post.isEmpty) throw PostNotExistException("Post not exists")
+        if (post.isEmpty) throw PostNotFoundException("Post not found")
         if (post.get().uid != uid) throw WrongPostWriterException("Wrong post writer")
         return post;
     }

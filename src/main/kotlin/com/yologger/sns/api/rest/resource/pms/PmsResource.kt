@@ -1,10 +1,10 @@
 package com.yologger.sns.api.rest.resource.pms
 
 import com.yologger.sns.api.config.MEDIA_TYPE_APPLICATION_JSON_UTF8_VALUE
-import com.yologger.sns.api.domain.ums.exception.UserNotExistException
+import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.pms.PostService
 import com.yologger.sns.api.domain.pms.dto.*
-import com.yologger.sns.api.domain.pms.exception.PostNotExistException
+import com.yologger.sns.api.domain.pms.exception.PostNotFoundException
 import com.yologger.sns.api.domain.pms.exception.WrongPostWriterException
 import com.yologger.sns.api.rest.support.Response
 import com.yologger.sns.api.rest.support.wrapBadRequest
@@ -39,13 +39,13 @@ class PmsResource(
     fun getPost(@PathVariable(name = "pid") pid: Long) {
     }
 
-    @ExceptionHandler(value = [UserNotExistException::class])
-    fun handle(e: UserNotExistException): ResponseEntity<Response<PmsFailureResponse>> {
+    @ExceptionHandler(value = [UserNotFoundException::class])
+    fun handle(e: UserNotFoundException): ResponseEntity<Response<PmsFailureResponse>> {
         return PmsFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
-    @ExceptionHandler(value = [PostNotExistException::class])
-    fun handle(e: PostNotExistException): ResponseEntity<Response<PmsFailureResponse>> {
+    @ExceptionHandler(value = [PostNotFoundException::class])
+    fun handle(e: PostNotFoundException): ResponseEntity<Response<PmsFailureResponse>> {
         return PmsFailureResponse(message = e.message!!).wrapBadRequest()
     }
 
