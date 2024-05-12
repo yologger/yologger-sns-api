@@ -49,9 +49,7 @@ class PostService(
     }
 
     @Transactional(readOnly = true)
-    fun getPost(pid: Long) {
-
-    }
+    fun getPost(pid: Long): PostData = PostData.fromEntity(postRepository.findById(pid).orElseThrow { PostNotFoundException("Post not found") }!!)
 
     @Transactional(readOnly = true)
     fun getPosts() {
@@ -62,7 +60,6 @@ class PostService(
     fun getPostsByUid(uid: String) {
 
     }
-
 
     @Throws(UserNotFoundException::class, PostNotFoundException::class, WrongPostWriterException::class)
     private fun validatePost(pid: Long, uid: Long): Optional<Post> {
