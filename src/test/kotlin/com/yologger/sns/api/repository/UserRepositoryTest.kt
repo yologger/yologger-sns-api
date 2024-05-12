@@ -3,8 +3,8 @@ package com.yologger.sns.api.repository
 import com.yologger.sns.api.config.DataSourceConfig
 import com.yologger.sns.api.config.TestMySQLContainer
 import com.yologger.sns.api.config.database.PersistentConfig
-import com.yologger.sns.api.entity.User
-import com.yologger.sns.api.repository.UserRepository
+import com.yologger.sns.api.infrastructure.entity.User
+import com.yologger.sns.api.infrastructure.repository.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -29,12 +29,14 @@ class UserRepositoryTest(
     fun addUser() {
         val email = "yologger1013@gmail.com"
 
-        userRepository.save(User(
+        userRepository.save(
+            User(
             email = email,
             name = "yologger1013",
             nickname = "yologger",
             password = "12341234"
-        ))
+        )
+        )
 
         val user = userRepository.findByEmail(email)
         assertThat(user.get().email).isEqualTo(email)

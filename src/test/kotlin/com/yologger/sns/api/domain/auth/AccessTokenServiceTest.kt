@@ -2,7 +2,9 @@ package com.yologger.sns.api.domain.auth
 
 import com.yologger.sns.api.config.AccessTokenConfig
 import com.yologger.sns.api.config.JwtConfig
-import com.yologger.sns.api.domain.auth.dto.AccessTokenClaim
+import com.yologger.sns.api.domain.ums.AccessTokenService
+import com.yologger.sns.api.domain.ums.JwtService
+import com.yologger.sns.api.domain.ums.dto.AccessTokenClaim
 import jakarta.security.auth.message.AuthException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy

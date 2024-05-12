@@ -1,6 +1,6 @@
 package com.yologger.sns.api.rest.advice
 
-//@RestControllerAdvice(basePackageClasses = [PostResource::class])
+//@RestControllerAdvice(basePackageClasses = [PmsResource::class])
 //class PostExceptionHandler {
 //
 //    @ExceptionHandler(value = [UserNotExistException::class])

@@ -3,7 +3,8 @@ package com.yologger.sns.api.repository
 import com.yologger.sns.api.config.DataSourceConfig
 import com.yologger.sns.api.config.TestMySQLContainer
 import com.yologger.sns.api.config.database.PersistentConfig
-import com.yologger.sns.api.entity.Post
+import com.yologger.sns.api.infrastructure.entity.Post
+import com.yologger.sns.api.infrastructure.repository.PostRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -32,11 +33,13 @@ class PostRepositoryTest(
         val body = "본문입니다."
 
         // When
-        val saved = postRepository.save(Post(
+        val saved = postRepository.save(
+            Post(
             uid = uid,
             title = title,
             body = body
-        ))
+        )
+        )
 
         val post = postRepository.findById(saved.id)
 

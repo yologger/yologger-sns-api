@@ -11,3 +11,7 @@ class MasterSlaveRoutingDataSource : AbstractRoutingDataSource() {
         return DBType.MASTER
     }
 }
+
+enum class DBType {
+    MASTER, SLAVE
+}
