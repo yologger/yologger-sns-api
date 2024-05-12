@@ -3,9 +3,11 @@ package com.yologger.sns.api.repository
 import com.yologger.sns.api.config.DataSourceConfig
 import com.yologger.sns.api.config.TestMySQLContainer
 import com.yologger.sns.api.config.database.PersistentConfig
+import com.yologger.sns.api.config.database.QueryDslConfig
 import com.yologger.sns.api.infrastructure.entity.User
 import com.yologger.sns.api.infrastructure.repository.UserRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,11 +18,12 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.junit.jupiter.Testcontainers
 
-@DataJpaTest
+// @Disabled
+@DataJpaTest(showSql = true)
 @Testcontainers
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // Disable H2 on DataJpaTest
-@Import(TestMySQLContainer::class, DataSourceConfig::class, PersistentConfig::class)
+@Import(TestMySQLContainer::class, DataSourceConfig::class, PersistentConfig::class, QueryDslConfig::class)
 class UserRepositoryTest(
     @Autowired private val userRepository: UserRepository
 ) {

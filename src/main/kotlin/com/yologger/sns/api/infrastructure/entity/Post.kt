@@ -27,7 +27,7 @@ class Post (
 ) {
     @Column(name = "create_date")
     @CreatedDate
-    lateinit var joinDate: LocalDateTime
+    lateinit var createDate: LocalDateTime
 
     @Column(name = "modified_at", columnDefinition = "timestamp on update CURRENT_TIMESTAMP")
     @ColumnDefault("CURRENT_TIMESTAMP")

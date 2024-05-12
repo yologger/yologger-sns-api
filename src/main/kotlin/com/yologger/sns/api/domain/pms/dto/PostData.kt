@@ -8,7 +8,7 @@ data class PostData(
     val uid: Long,
     val title: String,
     val body: String,
-    val joinDate: LocalDateTime,
+    val createDate: LocalDateTime,
     val modifiedAt: LocalDateTime
 ) {
     companion object {
@@ -18,7 +18,7 @@ data class PostData(
                 uid = post.uid,
                 title = post.title,
                 body = post.body,
-                joinDate = post.joinDate,
+                createDate = post.createDate,
                 modifiedAt = post.modifiedAt
             )
         }
