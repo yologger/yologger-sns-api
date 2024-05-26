@@ -30,7 +30,7 @@ class PmsResource(
     @DeleteMapping("/post", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun deletePost(@Validated @RequestBody request: DeletePostRequest) = postService.deletePost(uid = request.uid, pid = request.pid).wrapOk()
 
-    @GetMapping("/post/{pid}", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/post/{pid}")
     fun getPost(@PathVariable(name = "pid") pid: Long) = postService.getPost(pid).wrapOk()
 
     @GetMapping("/user/{uid}/posts", consumes = [MediaType.APPLICATION_JSON_VALUE])
