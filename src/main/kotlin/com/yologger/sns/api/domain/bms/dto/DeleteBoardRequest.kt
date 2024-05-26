@@ -1,11 +1,11 @@
-package com.yologger.sns.api.domain.pms.dto
+package com.yologger.sns.api.domain.bms.dto
 
 import jakarta.validation.constraints.Positive
 
-data class DeletePostRequest(
+data class DeleteBoardRequest(
     @field:Positive
     val uid: Long,
 
     @field:Positive
-    val pid: Long,
+    val bid: Long,
 )

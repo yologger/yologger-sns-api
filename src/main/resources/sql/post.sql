@@ -1,4 +1,4 @@
-create table if not exists `post` (
+create table if not exists `board` (
     id                int unsigned auto_increment primary key,
     uid               int unsigned                                      not null,
     title             varchar(256)                                      not null,

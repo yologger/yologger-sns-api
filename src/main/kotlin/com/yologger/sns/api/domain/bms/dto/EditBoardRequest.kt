@@ -1,15 +1,15 @@
-package com.yologger.sns.api.domain.pms.dto
+package com.yologger.sns.api.domain.bms.dto
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
 
-data class EditPostRequest(
+data class EditBoardRequest(
     @field:Positive
     val uid: Long,
 
     @field:Positive
-    val pid: Long,
+    val bid: Long,
 
     @field:NotBlank(message = "'title' must not be empty.")
     @field:Size(min = 4, max = 256, message = "'title' length must be between 4 and 256.")

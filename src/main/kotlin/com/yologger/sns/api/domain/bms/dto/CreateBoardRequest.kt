@@ -1,10 +1,10 @@
-package com.yologger.sns.api.domain.pms.dto
+package com.yologger.sns.api.domain.bms.dto
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
 
-data class CreatePostRequest(
+data class CreateBoardRequest(
     @field:Positive
     val uid: Long,
 
