@@ -2,6 +2,7 @@ package com.yologger.sns.api.domain.ums
 
 import com.yologger.sns.api.domain.ums.dto.AccessTokenClaim
 import com.yologger.sns.api.domain.ums.dto.LoginResponse
+import com.yologger.sns.api.domain.ums.dto.LogoutResponse
 import com.yologger.sns.api.domain.ums.dto.ValidateAccessTokenResponse
 import com.yologger.sns.api.domain.ums.exception.UserNotFoundException
 import com.yologger.sns.api.domain.ums.exception.WrongPasswordException
@@ -53,5 +54,15 @@ class AuthService(
         if (uid != user.id) throw AuthException("Invalid Access Token")
         accessTokenService.parseAsAccessTokenClaim(accessToken)
         return ValidateAccessTokenResponse(uid = uid, accessToken = accessToken)
+    }
+
+    @Transactional
+    @Throws
+    fun logout(uid: Long, accessToken: String): LogoutResponse {
+        val user = userRepository.findById(uid).orElseThrow { UserNotFoundException("User not found") }
+        if (uid != user.id) throw AuthException("Invalid Access Token")
+        accessTokenService.parseAsAccessTokenClaim(accessToken)
+        user.accessToken = null
+        return LogoutResponse(uid = uid)
     }
 }
