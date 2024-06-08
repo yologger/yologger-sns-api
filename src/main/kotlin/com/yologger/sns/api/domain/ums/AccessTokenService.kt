@@ -9,7 +9,7 @@ import com.yologger.sns.api.config.AccessTokenConfig
 import com.yologger.sns.api.decodeBase64
 import com.yologger.sns.api.deserialize
 import com.yologger.sns.api.domain.ums.dto.AccessTokenClaim
-import jakarta.security.auth.message.AuthException
+import com.yologger.sns.api.domain.ums.exception.AuthException
 import org.springframework.stereotype.Service
 
 @Service
